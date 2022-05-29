@@ -497,16 +497,31 @@ def gather(iterations,mysize, out):
                     
                 out.writerow([name, size, checks, assignments, dt])
 
+def kenken_input(board_size,algo):
+
+    size, cliques = generate(board_size)
+    ken = Kenken(size, cliques)
+    if algo=="BT":
+     assignment = csp.backtracking_search(ken)
+    elif algo=="FC":
+     assignment = csp.backtracking_search(ken, inference=csp.forward_checking)
+    elif algo=="MAC":
+     assignment = csp.backtracking_search(ken, inference=csp.mac)  
+    return ken,assignment
+ 
+
+
 if __name__ == "__main__":
 
 #for generating and displaying the random kenken board solution with certain algorithm 
+
     board_size=3
-    size, cliques = generate(board_size)
-    ken = Kenken(size, cliques)
-    assignment = csp.backtracking_search(ken)
+    algo="BT"
+    ken=Kenken(0,"")
+    ken,assignment=kenken_input(board_size,algo)
     ken.display(assignment)
 
   
 #for generating and displaying the report for random kenken boards with diffrent algorithms
-    random_board_size=6
-    gather(1,random_board_size,"out.txt")
+    random_size=6
+    gather(1,random_size,"out.txt")
