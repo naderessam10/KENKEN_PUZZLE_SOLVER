@@ -499,35 +499,14 @@ def gather(iterations,mysize, out):
 
 if __name__ == "__main__":
 
-    # gather(3, "kenken.csv")
-
-    example = \
-        "6\n"\
-        "(((1, 1), (1, 2)), '+', 11)\n"\
-        "(((2, 1), (3, 1)), '/', 2)\n"\
-        "(((2, 2), (3, 2)), '-', 3)\n"\
-        "(((4, 1), (4, 2)), '*', 20)\n"\
-        "(((5, 1), (6, 1), (6, 2), (6, 3)), '*', 6)\n"\
-        "(((5, 2), (5, 3)), '/', 3)\n"\
-        "(((1, 3), (1, 4), (2, 3), (2, 4)), '*', 240)\n"\
-        "(((3, 3), (4, 3)), '*', 6)\n"\
-        "(((5, 4), (6, 4)), '*', 30)\n"\
-        "(((1, 5), (2, 5)), '*', 6)\n"\
-        "(((3, 4), (3, 5)), '*', 6)\n"\
-        "(((4, 4), (4, 5), (5, 5)), '+', 7)\n"\
-        "(((1, 6), (2, 6), (3, 6)), '+', 8)\n"\
-        "(((4, 6), (5, 6)), '/', 2)\n"\
-        "(((6, 5), (6, 6)), '+', 9)\n"
-
-    size, cliques = parse(example)
-
-   
-
+#for generating and displaying the random kenken board solution with certain algorithm 
+    board_size=3
+    size, cliques = generate(board_size)
     ken = Kenken(size, cliques)
-
     assignment = csp.backtracking_search(ken)
-    
-    
-    gather(1,7,"out.txt")
-
     ken.display(assignment)
+
+  
+#for generating and displaying the report for random kenken boards with diffrent algorithms
+    random_board_size=6
+    gather(1,random_board_size,"out.txt")
