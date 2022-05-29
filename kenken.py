@@ -448,7 +448,7 @@ def benchmark(kenken, algorithm):
 
         return assignment, (kenken.checks, kenken.nassigns, dt)
 
-def gather(iterations, out):
+def gather(iterations,mysize, out):
     """
     Benchmark each one of the following algorithms for various kenken puzzles
 
@@ -482,7 +482,7 @@ def gather(iterations, out):
         out.writerow(["Algorithm", "Size", "Result", "Constraint checks", "Assignments", "Completion time"])
 
         for name, algorithm in algorithms.items():
-            for size in range(3, 6):
+            for size in range(3, mysize+1):
                 checks, assignments, dt = (0, 0, 0)
                 for iteration in range(1, iterations + 1):
                     size, cliques = generate(size)
@@ -521,13 +521,13 @@ if __name__ == "__main__":
 
     size, cliques = parse(example)
 
-    # size, cliques = parse(list(stdin))
+   
 
     ken = Kenken(size, cliques)
 
     assignment = csp.backtracking_search(ken)
     
     
-    gather(1,"out.txt")
+    gather(1,7,"out.txt")
 
     ken.display(assignment)
