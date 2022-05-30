@@ -143,34 +143,7 @@ def generate(size):
 
     return size, cliques
 
-def parse(lines):
-    """
-    Used in order to parse a non-generated / handmade kenken puzzle
-    given in string / list of strings format
-    """
 
-    if isinstance(lines, str):
-        lines = lines.splitlines(True)
-
-    try:
-        content = lines[0][:-1]
-        size = int(content)
-    except:
-        print("Unable to determine board size [", content, "]", file=stderr)
-        exit(11)
-
-    cliques = []
-    for line in lines[1:]:
-        content = line[:-1]
-        if content:
-            try:
-                clique = eval(content)
-                cliques.append(clique)
-            except:
-                print("Malformed clique [", content, "]")
-                exit(12)
-
-    return size, cliques
 
 def validate(size, cliques):
     """
@@ -341,11 +314,7 @@ class Kenken(csp.CSP):
             self.meta[members] = (operator, target)
             self.padding = max(self.padding, len(str(target)))        
 
-    # def nconflicts(self, var, val, assignment):
 
-    # def assign(self, var, val, assignment):
-
-    # def unassign(self, var, assignment):
 
     def constraint(self, A, a, B, b):
         """
@@ -413,22 +382,6 @@ class Kenken(csp.CSP):
 
             print(rpadding)
 
-    def info(self):
-        """
-        Print debugging info
-        """
-
-        print("\nVariables:")
-        for var in self.variables:
-            print(var)
-
-        print("\nDomains:")
-        for var in self.variables:
-            print("domains[", var, "] =", self.domains[var])
-
-        print("\nNeighbors:")
-        for var in self.variables:
-            print("neighbors[", var, "] =", self.neighbors[var])
 
 def benchmark(kenken, algorithm):
         """
@@ -448,7 +401,7 @@ def benchmark(kenken, algorithm):
 
         return assignment, (kenken.checks, kenken.nassigns, dt)
 
-def gather(iterations,mysize, out):
+def gather(iterations,start_size,end_size, out):
     """
     Benchmark each one of the following algorithms for various kenken puzzles
 
@@ -481,7 +434,7 @@ def gather(iterations,mysize, out):
 
         out.writerow(["Algorithm  ", "Size  ", "Constraint checks  ", "Assignments  ", "Completion time"])
         counter=0
-        for size in range(3, mysize+1):
+        for size in range(start_size, end_size+1):
             checks, assignments, dt = (0, 0, 0)
             for iteration in range(1, iterations + 1):
                     size, cliques = generate(size)
@@ -523,5 +476,6 @@ if __name__ == "__main__":
 
   
 #for generating and displaying the report for random kenken boards with diffrent algorithms
-    random_size=7
-    gather(1,random_size,"out.txt")
+    start_size=10
+    end_size=10
+    gather(1,start_size,end_size,"out.txt")
