@@ -479,24 +479,24 @@ def gather(iterations,mysize, out):
 
         out = writer(file)
 
-        out.writerow(["Algorithm", "Size", "Result", "Constraint checks", "Assignments", "Completion time"])
-
-        for name, algorithm in algorithms.items():
-            for size in range(3, mysize+1):
-                checks, assignments, dt = (0, 0, 0)
-                for iteration in range(1, iterations + 1):
+        out.writerow(["Algorithm  ", "Size  ", "Constraint checks  ", "Assignments  ", "Completion time"])
+        counter=0
+        for size in range(3, mysize+1):
+            checks, assignments, dt = (0, 0, 0)
+            for iteration in range(1, iterations + 1):
                     size, cliques = generate(size)
-
-                    assignment, data = benchmark(Kenken(size, cliques), algorithm)
-
-                    print("algorithm =",  name, "size =", size, "iteration =", iteration, "result =", "Success" if assignment else "Failure", file=stderr)
-
-                    checks      += data[0] / iterations
-                    assignments += data[1] / iterations
-                    dt          += data[2] / iterations
                     
-                out.writerow([name, size, checks, assignments, dt])
+                    for name, algorithm in algorithms.items():
+                     assignment, data = benchmark(Kenken(size, cliques), algorithm)
 
+                     print("algorithm =",  name, "size =", size, "iteration =", iteration, "result =", "Success" if assignment else "Failure", file=stderr)
+
+                     checks      += data[0] / iterations
+                     assignments += data[1] / iterations
+                     dt          += data[2] / iterations
+                    
+                     out.writerow([str(name) + "          ", str(size) + "          ",str(checks) + "          ", str(assignments) + "         ",str(dt) + "          "])
+                    
 def kenken_input(board_size,algo):
 
     size, cliques = generate(board_size)
@@ -523,5 +523,5 @@ if __name__ == "__main__":
 
   
 #for generating and displaying the report for random kenken boards with diffrent algorithms
-    random_size=6
+    random_size=7
     gather(1,random_size,"out.txt")
