@@ -20,23 +20,6 @@ from operator import itemgetter
 
 infinity = float('inf')
 
-# ______________________________________________________________________________
-
-
-class Problem(object):
-
-    """The abstract class for a formal problem. You should subclass
-    this and implement the methods actions and result, and possibly
-    __init__, goal_test, and path_cost. Then you will create instances
-    of your subclass and solve them with the various search functions."""
-
-    def __init__(self, initial, goal=None):
-        """The constructor specifies the initial state, and possibly a goal
-        state, if there is a unique goal. Your subclass's constructor can add
-        other arguments."""
-        self.initial = initial
-        self.goal = goal
-
 
         
 class Node:
@@ -104,6 +87,31 @@ class Node:
 
 # ______________________________________________________________________________
         
+
+
+
+
+
+
+# ______________________________________________________________________________
+
+
+class Problem(object):
+
+    """The abstract class for a formal problem. You should subclass
+    this and implement the methods actions and result, and possibly
+    __init__, goal_test, and path_cost. Then you will create instances
+    of your subclass and solve them with the various search functions."""
+
+    def __init__(self, initial, goal=None):
+        """The constructor specifies the initial state, and possibly a goal
+        state, if there is a unique goal. Your subclass's constructor can add
+        other arguments."""
+        self.initial = initial
+        self.goal = goal
+
+
+
         
         
         
