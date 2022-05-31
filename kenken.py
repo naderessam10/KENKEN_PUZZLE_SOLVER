@@ -1,4 +1,3 @@
-
 import csp
 
 # @ <component>: <usage>
@@ -432,10 +431,11 @@ def gather(iterations,start_size,end_size, out):
 
         out = writer(file)
 
-        out.writerow(["Algorithm  ", "Size  ", "Constraint checks  ", "Assignments  ", "Completion time"])
+        out.writerow(["Algorithm  ", "Size  ","Generation Number", "Constraint checks  ", "Assignments  ", "Completion time"])
         counter=0
         for size in range(start_size, end_size+1):
             checks, assignments, dt = (0, 0, 0)
+            counter=1
             for iteration in range(1, iterations + 1):
                     size, cliques = generate(size)
                     
@@ -448,8 +448,9 @@ def gather(iterations,start_size,end_size, out):
                      assignments += data[1] / iterations
                      dt          += data[2] / iterations
                     
-                     out.writerow([str(name) + "          ", str(size) + "          ",str(checks) + "          ", str(assignments) + "         ",str(dt) + "          "])
-                    
+                     out.writerow([str(name) + "          ", str(size) + "          ",str(counter)+ "       ",str(checks) + "          ", str(assignments) + "         ",str(dt) + "          "])
+                    counter=counter+1              
+      
 def kenken_input(board_size,algo):
 
     size, cliques = generate(board_size)
@@ -468,7 +469,7 @@ if __name__ == "__main__":
 
 #for generating and displaying the random kenken board solution with certain algorithm 
 
-    board_size=3
+    board_size=6
     algo="BT"
     ken=Kenken(0,"")
     ken,assignment=kenken_input(board_size,algo)
@@ -476,6 +477,6 @@ if __name__ == "__main__":
 
   
 #for generating and displaying the report for random kenken boards with diffrent algorithms
-    start_size=10
-    end_size=10
-    gather(1,start_size,end_size,"out.txt")
+    start_size=3
+    end_size=4
+    gather(7,start_size,end_size,"out.csv")
