@@ -444,9 +444,9 @@ def gather(iterations,start_size,end_size, out):
 
                      print("algorithm =",  name, "size =", size, "iteration =", iteration, "result =", "Success" if assignment else "Failure", file=stderr)
 
-                     checks      += data[0] / iterations
-                     assignments += data[1] / iterations
-                     dt          += data[2] / iterations
+                     checks      = data[0] 
+                     assignments = data[1] 
+                     dt          = data[2] 
                     
                      out.writerow([str(name) + "          ", str(size) + "          ",str(counter)+ "       ",str(checks) + "          ", str(assignments) + "         ",str(dt) + "          "])
                     counter=counter+1              
